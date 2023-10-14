@@ -2,7 +2,8 @@
     "name": "i2c-gpio-ampel5",
     "description": "",
     "dependencies": {
-        "core": "*"
+        "core": "*",
+        "gpio": "github:calliope-net/gpio#v2.0.1"
     },
     "files": [
         "main.blocks",
