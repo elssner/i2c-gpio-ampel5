@@ -10,14 +10,27 @@ function Ampelsteuerung () {
     GPIOAmpel(1, 0, 0, 1, 0)
     basic.pause(2000)
     GPIOAmpel(1, 0, 0, 0, 1)
+    basic.pause(7000)
+    GPIOAmpel(1, 0, 0, 1, 0)
+    basic.pause(5000)
+    GPIOAmpel(1, 1, 0, 1, 0)
+    basic.pause(750)
+    GPIOAmpel(0, 0, 1, 1, 0)
 }
+input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
+    while (!(input.buttonIsPressed(Button.A))) {
+        Ampelsteuerung()
+        basic.pause(10000)
+    }
+    GPIOAmpel(0, 1, 0, 0, 0)
+})
 function GPIOAmpel (Rot: number, Gelb: number, Grün: number, Rot2: number, Grün2: number) {
     Byte = 0
     Byte += Rot * 2 ** 0
     Byte += Gelb * 2 ** 1
     Byte += Grün * 2 ** 2
-    Byte += Rot2 * 2 ** 3
-    Byte += Grün2 * 2 ** 4
+    Byte += Rot2 * 2 ** 4
+    Byte += Grün2 * 2 ** 5
     qwiicgpio.writeOUTPUT_PORT(qwiicgpio.qwiicgpio_eADDR(qwiicgpio.eADDR.GPIO_x27), Byte)
     if (Rot == 1) {
         basic.setLedColor(0xff0000)
